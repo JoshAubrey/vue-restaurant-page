@@ -1,47 +1,24 @@
 <template>
   <div id="app">
     <Header/>
-    <Navigation/>
-    <AboutPage/>
+    <div id="nav">
+      <div class="menu">
+          <router-link to="/">Home</router-link>
+          <router-link to="/Menu">Menu</router-link>
+          <router-link to="/Location">Location</router-link>
+      </div>
+    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
-import Navigation from './components/Navigation.vue'
-import AboutPage from './components/AboutPage.vue'
-import FoodMenuPage from './components/FoodMenuPage.vue'
-import LocationPage from './components/LocationPage.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-    Navigation,
-    AboutPage,
-    // FoodMenuPage,
-    // LocationPage
-  },
-  mounted () {
-    document.querySelectorAll(".menu-item").forEach( button =>
-      button.addEventListener("click", function(e) {
-        document.querySelectorAll('.menu-item').forEach(menuItem => 
-          menuItem.classList.remove('menu-item-selected')
-        )
-        document.getElementById('app').removeChild(document.querySelector('.inner-content'))
-        switch(e.target.id){
-            case 'about':
-                document.getElementById('app').appendChild(AboutPage)
-            break
-            case 'menu':
-                FoodMenuPage.$mount()
-            break
-            case 'location':
-                LocationPage.$mount()
-            break
-        }
-      })
-    )
   }
 }
 </script>
@@ -56,7 +33,42 @@ body {
     margin: 0;
     padding: 0;
 }
-/* #app {
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-} */
+#nav {
+  background-color: #b4d457;
+  height: 3em;
+  width: 100%;
+}
+
+.menu {
+    list-style: none;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+#nav a {
+  padding: 1em;
+  color: #2d2d2d;
+  text-decoration: none;
+}
+
+#nav a:hover{
+    background-color: white;
+    cursor: pointer;
+}
+
+#nav a.router-link-exact-active {
+  background-color: white;
+}
 </style>
