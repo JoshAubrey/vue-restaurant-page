@@ -1,28 +1,62 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header/>
+    <Navigation/>
+    <AboutPage/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue'
+import Navigation from './components/Navigation.vue'
+import AboutPage from './components/AboutPage.vue'
+import FoodMenuPage from './components/FoodMenuPage.vue'
+import LocationPage from './components/LocationPage.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    Navigation,
+    AboutPage,
+    // FoodMenuPage,
+    // LocationPage
+  },
+  mounted () {
+    document.querySelectorAll(".menu-item").forEach( button =>
+      button.addEventListener("click", function(e) {
+        document.querySelectorAll('.menu-item').forEach(menuItem => 
+          menuItem.classList.remove('menu-item-selected')
+        )
+        document.getElementById('app').removeChild(document.querySelector('.inner-content'))
+        switch(e.target.id){
+            case 'about':
+                document.getElementById('app').appendChild(AboutPage)
+            break
+            case 'menu':
+                FoodMenuPage.$mount()
+            break
+            case 'location':
+                LocationPage.$mount()
+            break
+        }
+      })
+    )
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+    box-sizing: content-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.35;
 }
+body {
+    margin: 0;
+    padding: 0;
+}
+/* #app {
+
+} */
 </style>
